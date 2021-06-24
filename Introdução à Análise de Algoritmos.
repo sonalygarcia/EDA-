@@ -1,0 +1,83 @@
+# Resumo: Introdução à Análise de Algoritmos.<br />
+###Sonaly Nunes, 06/2021.
+
+Ao desenvolvermos um algoritmo deveremos investigar sua legibilidade, modularidade, simplicidade, facilidade de manutenção, corretude e o que estudaremos com enfâse a sua 
+**eficiência/desempenho***.<br />
+
+Ao nos deparamos com problemas computacionais, diversas soluções poderão ser propostas. Por exemplo, para ordenar um sequência de números, o desenvolvedor pode utilizar algoritmos como o BubbleSort, MergeSort e etc.
+No entanto, qual seria seria o melhor o algoritmo a ser utilizado? Isso dependerá do nosso contexto.<br />
+
+*Comparar diferentes soluções para o mesmo problema.*<br />
+
+Entender como esses algoritmos funcionam se comportam à medida que aumentamos o tamanho da entrada a ser ordenada é primordial para decidirmos qual solução adotar.
+
+##Análise de Eficiência.
+
+A análise de eficiência determinará a quantidade de recursos computacionais que um algoritmo irá consumir em sua execução (Processamento e memória). <br />
+Esse procedimento de analisar, nos ajudará a excluir as soluções não tão **"eficiêntes"/"adequadas"**.<br />
+Nesse momento, iremos nos preocupar com o tempo de execução desse algoritmo.<br />
+
+##Métodos para analisar tempo de execução.
+
+Uma abordagem direta para analisar o desempenho de um algoritmo é a abordagem empírica. Para isso precisaremos de ambiente em que as variáveis são controladas
+e executa-se os algoritmos com intenção de medir o tempo de computação e comparar as diferentes soluções. 
+O tempo de execução (eixo y) é medido em função do tamanho da entrada (eixo x).
+Como por exemplo, se fossemos analisar empiricamente um algoritmo de ordenação medimos o tempo de execução para diferentes tamanhos de arrays.<br /><br />
+
+Essa abordagem é de alta precisão, pois seus resultados virão em tempo exato (s), entretanto, é um procedimento demorado e caro.<br />
+
+No entanto, nem sempre pecisamos de um alto nível de precisão. Mas, precisamos de um método que seja:<br />
+
+```
+- Simples;
+- Permita análise sem execução.
+- Independente de hardware;
+- Análise os algoritmos em um espectro maior de entradas;
+```
+<br />
+
+Uma abordagem que nos permitirá isso, será o método analítico.<br />
+Nesse contexto, o tempo de execução de um algoritmo é a soma do custo das operações primitivas.<br />
+
+Quais são as operações primitivas?
+> • Atribuição (i = 1); <br />
+> • Retorno de métodos (return true;);<br />
+> • Operações matemáticas (*, -, +, %, etc);<br />
+> • Avaliação de expressões booleanas (i >= 1; i == 1, etc);<br />
+> • Acesso à variáveis e posições arbitrárias de um array (v[j]).<br />
+
+###Exemplo: Vamos analisar um código responsável por multiplicar o resto por uma parte inteira.<br />
+
+>int multiplicaRestoPorParteInteira(int i, int j) {
+    >int resto = i % j;
+    >int parteInteira = i / j;
+    >int resultado = resto * parteInteira;
+    >return resultado;
+>}
+
+Para analisarmos a soma dos custos, vamos seguir os passos de:<br />
+> **1º Passo:** Devemos identificar as primitivas, cada uma das primitivas terão valor constante.<br />
+> **2º Passo:** Devemos identificar a quantidade de vezes que cada uma das primitivas é executada.<br />
+> **3º Passo:** Ao final devemos somar as execuções das primitivas. <br />
+
+No exemplo a cima, temos como primitiva: <br /><br />
+
+• primitiva **c1** -> atribuição ( resto = ) <br />
+• primitiva **c2** -> operação arit.( i % j ) <br />
+• primitiva **c3** -> atribuição ( parteInteira = ) <br />
+• primitiva **c4** -> operação arit. ( i / j ) <br />
+• primitiva **c5** -> atribuição ( resultado = )<br />
+• primitiva **c6** -> operação arit.( resto * parteInteira )<br />
+• primitiva **c7** -> retorno de método ( return resultado )<br />
+
+Todas constantes acima são executadas apenas uma vez. (Passo 02) <br />
+A soma de execuções resulta em 7c. (Passo 03)  <br />
+
+
+
+
+
+
+
+
+
