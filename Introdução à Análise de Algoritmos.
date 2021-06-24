@@ -73,11 +73,115 @@ No exemplo a cima, temos como primitiva: <br /><br />
 Todas constantes acima são executadas apenas uma vez. (Passo 02) <br />
 A soma de execuções resulta em 7c. (Passo 03)  <br />
 
+Quando se houver condicionais, sempre iremos considerar a pior hipotése (a qual leva maior tempo de execução).
 
+###Exemplo 02:
 
+>double precisaNaFinal(double nota1, double nota2, double nota3) {
 
+    >double media = (nota1 + nota2 + nota3) / 3;
+        
+    >if (media >= 7 || media < 4) {
+        >return 0;
+        
+    >} else {
+        >double mediaFinal = 5;
+        >double pesoFinal = 0.4;
+        >double pesoMedia = 0.6;
+        >double precisa = (mediaFinal - pesoMedia * media) / pesoFinal;    
+        >return precisa;
+    >}
+>}
 
+No exemplo a cima, temos como primitiva: <br /><br />
 
+• primitiva **c1** -> atribuição ( media = ) <br />
+• primitiva **c2** -> operação arit. ( (nota1 + nota2 + nota3) ) <br />
+• primitiva **c3** -> operação arit. ( ... / 3 ) <br />
+• primitiva **c4** -> avaliação de exp. booleana (media >=7 || media < 4) <br />
+• primitiva **c5** -> retorno de método ( return 0; )<br />
+• primitiva **c6** -> atribuição ( mediaFinal = ) <br />
+• primitiva **c7** -> atribuição ( pesoFinal = ) <br />
+• primitiva **c8** -> atribuição ( pesoMedia = ) <br />
+• primitiva **c9** -> atribuição ( precisa = ) <br />
+• primitiva **c10** -> operação arit.( pesoMedia * media ) <br />
+• primitiva **c11** -> operação arit.( mediaFinal - ... ) <br />
+• primitiva **c12** -> operação arit.( ... / pesoFinal ) <br />
+• primitiva **c13** -> retorno de método ( return precisa ) <br />
 
+Para o passo 02, iremos considerar o bloco condicional mais custoso, que seria executando o 'else', portanto, descartamos nossa constante c5.
+Ao analisarmos, todas constantes se repetem apenas uma vez.  <br />
 
+Passo 03: Soma de todas constantes. O resultado será 12c, já que o c5 foi descartado.
+
+Quando houver iteração, o que irá ser modificado é que nossas primitivas podem ser executadas mais de uma vez.
+
+##Exemplo:
+
+> public static boolean contains(int[] v, int n) {
+    for (int i = 0; i < v.length; i++)
+        if (v[i] == n)
+            return true;
+    return false;
+} <
+
+No exemplo acima, temos como primitivas: <br /><br />
+
+• primitiva **c1** -> atribuição ( int i = 0 ) <br />
+• primitiva **c2** -> avaliação de exp. booleana ( i < v.length ) <br />
+• primitiva **c3** -> operação arit.( i++ ) <br />
+• primitiva **c4** -> avaliação de exp. booleana ( v[i] == n ) <br />
+• primitiva **c5** -> retorno de método ( return true ) <br />
+• primitiva **c6** -> retorno de método ( return false ) <br />
+
+Para o passo 02, como vimos anteriormente, iremos considerar sempre o bloco condicional mais custoso, portanto, iremos desconsiderar a primitiva c5.<br /><br />
+• primitiva **c1** -> executada apenas uma vez.<br />
+• primitiva **c2** -> executada n+1 vezes.<br />
+• primitiva **c3** -> executada n vezes.<br />
+• primitiva **c4** -> executada n vezes.<br />
+• primitiva **c6** -> executada apenas uma vez.<br />
+
+Para o passo 03, iremos calcular o custo total.
+
+F(n) = c1 + c2 * (n + 1) + c3 * n + c4 * n + c6.
+F(n) = 3 * c * n + 3 c
+
+Quando se houver loops aninhadas.
+
+###Exemplo 03:
+
+> public boolean contemDuplicacao(int[] v) {
+    for (int i = 0; i < v.length; i++)
+        for (int j = i + 1; j < v.length; j++)
+            if (v[i] == v[j])
+                return true;
+    return false;
+} <
+
+• primitiva **c1** -> atribuição ( int i = 0 ) <br />
+• primitiva **c2** -> avaliação de exp. booleana ( i < v.length ) <br />
+• primitiva **c3** -> operação arit.( i++ ) <br />
+• primitiva **c4** -> atribuição ( int j = ) <br />
+• primitiva **c5** -> operação arit.( ... i + 1 ) <br />
+• primitiva **c6** -> avaliação de exp. booleana ( j < v.length ) <br />
+• primitiva **c7** -> operação arit.( j++ ) <br />
+• primitiva **c8** -> avaliação de exp. booleana ( v[i] == v[j]) <br />
+• primitiva **c9** -> retorno de método ( return true ) <br />
+• primitiva **c10** -> retorno de método ( return false ) <br />
+
+Para o passo 02, iremos considerar a condicional mais "custosa", portanto, descartaremos a primitiva c9.<br />
+
+• primitiva **c1** -> executada apenas uma vez.<br />
+• primitiva **c2** -> executada n+1 vezes.<br />
+• primitiva **c3** -> executada n vezes.<br />
+• primitiva **c4** -> executada n vezes.<br />
+• primitiva **c5** -> executada n vezes.<br />
+• primitiva **c6** -> executada (n²+n)/2  vezes. <br />
+• primitiva **c7** -> executada  n²/2 vezes. <br />
+• primitiva **c8** -> executada  n²/2 vezes. <br />
+• primitiva **c10** -> executada apenas uma vez. <br />
+
+Passo 03: Soma de custo. <br />
+
+F(n) =c1 + c2∗(n+1) + c3∗n + c4∗n + c5∗n + c6 (n2+n)/2 + c7∗n2/2 + c8∗n2/2 + c10
 
